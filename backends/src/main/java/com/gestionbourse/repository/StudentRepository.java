@@ -11,16 +11,14 @@ import java.util.Date;
 import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String> {
-    @Query("SELECT s FROM Student s WHERE s.matricule = :registrationNumber")
+    @Query("SELECT s FROM Student s WHERE s.registrationNumber = :registrationNumber")
     Optional<Student> findByRegistrationNumber(@Param("registrationNumber") String registrationNumber);
-
-    @Query("SELECT s FROM Student s WHERE s.nom LIKE CONCAT('%', :name, '%')")
+    @Query("SELECT s FROM Student s WHERE s.name LIKE CONCAT('%', :name, '%')")
     List<Student> findByNameContaining(@Param("name") String name);
-
-    @Query("SELECT s FROM Student s WHERE s.niveau = :level AND s.institution = :institution")
+    @Query("SELECT s FROM Student s WHERE s.level = :level AND s.institution = :institution")
     List<Student> findByLevelAndInstitution(@Param("level") String level, @Param("institution") String institution);
 
-    @Query("SELECT s FROM Student s WHERE s.datenais > :birthDate")
+    @Query("SELECT s FROM Student s WHERE s.birthDate > :birthDate")
     List<Student> findByBirthDateAfter(@Param("birthDate") Date birthDate);
 }
 
