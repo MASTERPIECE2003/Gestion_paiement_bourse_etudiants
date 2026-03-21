@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/v1/montants")
+@RequestMapping("/${version.path}/montants")
 public class MontantController {
 
     @Autowired

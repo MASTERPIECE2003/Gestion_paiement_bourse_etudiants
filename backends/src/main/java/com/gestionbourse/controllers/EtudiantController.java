@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/v1/etudiants")
+@RequestMapping("/${version.path}/etudiants")
 public class EtudiantController {
 
     @Autowired
