@@ -1,5 +1,6 @@
 package com.gestionbourse.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,27 +15,33 @@ public class Amount {
     private int montant;
 
     // Getters and Setters
-    public Long getIdniv() {
+    @JsonProperty("idniv")
+    public Long getLevelId() {
         return idniv;
     }
 
-    public void setIdniv(Long idniv) {
+    @JsonProperty("idniv")
+    public void setLevelId(Long idniv) {
         this.idniv = idniv;
     }
 
-    public String getNiveau() {
+    @JsonProperty("niveau")
+    public String getLevel() {
         return niveau;
     }
 
-    public void setNiveau(String niveau) {
+    @JsonProperty("niveau")
+    public void setLevel(String niveau) {
         this.niveau = niveau;
     }
 
-    public int getMontant() {
+    @JsonProperty("montant")
+    public int getAmount() {
         return montant;
     }
 
-    public void setMontant(int montant) {
+    @JsonProperty("montant")
+    public void setAmount(int montant) {
         this.montant = montant;
     }
 }

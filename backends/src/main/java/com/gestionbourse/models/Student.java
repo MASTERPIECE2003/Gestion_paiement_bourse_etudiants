@@ -1,5 +1,6 @@
 package com.gestionbourse.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
@@ -22,35 +23,43 @@ public class Student {
     private String annee_univ;
 
     // Getters and Setters
-    public String getMatricule() {
+    @JsonProperty("matricule")
+    public String getRegistrationNumber() {
         return matricule;
     }
 
-    public void setMatricule(String matricule) {
+    @JsonProperty("matricule")
+    public void setRegistrationNumber(String matricule) {
         this.matricule = matricule;
     }
 
-    public String getNom() {
+    @JsonProperty("nom")
+    public String getName() {
         return nom;
     }
 
-    public void setNom(String nom) {
+    @JsonProperty("nom")
+    public void setName(String nom) {
         this.nom = nom;
     }
 
-    public String getSexe() {
+    @JsonProperty("sexe")
+    public String getGender() {
         return sexe;
     }
 
-    public void setSexe(String sexe) {
+    @JsonProperty("sexe")
+    public void setGender(String sexe) {
         this.sexe = sexe;
     }
 
-    public Date getDatenais() {
+    @JsonProperty("datenais")
+    public Date getBirthDate() {
         return datenais;
     }
 
-    public void setDatenais(Date datenais) {
+    @JsonProperty("datenais")
+    public void setBirthDate(Date datenais) {
         this.datenais = datenais;
     }
 
@@ -62,11 +71,13 @@ public class Student {
         this.institution = institution;
     }
 
-    public String getNiveau() {
+    @JsonProperty("niveau")
+    public String getLevel() {
         return niveau;
     }
 
-    public void setNiveau(String niveau) {
+    @JsonProperty("niveau")
+    public void setLevel(String niveau) {
         this.niveau = niveau;
     }
 
@@ -78,11 +89,13 @@ public class Student {
         this.mail = mail;
     }
 
-    public String getAnnee_univ() {
+    @JsonProperty("annee_univ")
+    public String getAcademicYear() {
         return annee_univ;
     }
 
-    public void setAnnee_univ(String annee_univ) {
+    @JsonProperty("annee_univ")
+    public void setAcademicYear(String annee_univ) {
         this.annee_univ = annee_univ;
     }
 }

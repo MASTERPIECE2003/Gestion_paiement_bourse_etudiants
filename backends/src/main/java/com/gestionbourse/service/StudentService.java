@@ -14,63 +14,63 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     @Autowired
-    private StudentRepository etudiantRepository;
+    private StudentRepository studentRepository;
 
-    public List<Student> getAllEtudiants() {
-        return etudiantRepository.findAll();
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
-    public Optional<Student> getEtudiantById(String id) {
-        return etudiantRepository.findById(id);
+    public Optional<Student> getStudentById(String id) {
+        return studentRepository.findById(id);
     }
 
-    public Student saveEtudiant(Student etudiant) {
-        if (etudiantRepository.findByMatricule(etudiant.getMatricule()).isPresent()) {
-            throw new RuntimeException("Un étudiant avec ce matricule existe déjà : " + etudiant.getMatricule());
+    public Student saveStudent(Student student) {
+        if (studentRepository.findByRegistrationNumber(student.getRegistrationNumber()).isPresent()) {
+            throw new RuntimeException("Un étudiant avec ce matricule existe déjà : " + student.getRegistrationNumber());
         }
-        return etudiantRepository.save(etudiant);
+        return studentRepository.save(student);
     }
 
-    public Student updateEtudiant(String id, Student etudiant) {
-        Student existingEtudiant = etudiantRepository.findById(id)
+    public Student updateStudent(String id, Student student) {
+        Student existingStudent = studentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec id: " + id));
-        existingEtudiant.setNom(etudiant.getNom());
-        existingEtudiant.setSexe(etudiant.getSexe());
-        existingEtudiant.setDatenais(etudiant.getDatenais());
-        existingEtudiant.setInstitution(etudiant.getInstitution());
-        existingEtudiant.setNiveau(etudiant.getNiveau());
-        existingEtudiant.setMail(etudiant.getMail());
-        existingEtudiant.setAnnee_univ(etudiant.getAnnee_univ());
+        existingStudent.setName(student.getName());
+        existingStudent.setGender(student.getGender());
+        existingStudent.setBirthDate(student.getBirthDate());
+        existingStudent.setInstitution(student.getInstitution());
+        existingStudent.setLevel(student.getLevel());
+        existingStudent.setMail(student.getMail());
+        existingStudent.setAcademicYear(student.getAcademicYear());
 
-        return etudiantRepository.save(existingEtudiant);
+        return studentRepository.save(existingStudent);
     }
 
-    public Optional<Student> getEtudiantByMatricule(String matricule) {
-        return etudiantRepository.findByMatricule(matricule);
+    public Optional<Student> getStudentByRegistrationNumber(String registrationNumber) {
+        return studentRepository.findByRegistrationNumber(registrationNumber);
     }
 
-    public List<Student> getEtudiantByNom(String nom) {
-        return etudiantRepository.findByNomContaining(nom);
+    public List<Student> getStudentsByName(String name) {
+        return studentRepository.findByNameContaining(name);
     }
 
-    public List<Student> getEtudiantsByNiveauAndInstitution(String niveau, String institution) {
-        return etudiantRepository.findByNiveauAndInstitution(niveau, institution);
+    public List<Student> getStudentsByLevelAndInstitution(String level, String institution) {
+        return studentRepository.findByLevelAndInstitution(level, institution);
     }
 
-    public List<Student> getEtudiantsMineurs() {
+    public List<Student> getMinorStudents() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -18);
         Date date = calendar.getTime();
-        return etudiantRepository.findByDatenaisAfter(date);
+        return studentRepository.findByBirthDateAfter(date);
     }
 
-    public void deleteEtudiant(String id) {
-        etudiantRepository.deleteById(id);
+    public void deleteStudent(String id) {
+        studentRepository.deleteById(id);
     }
 
-    public List<String> getAllMatricules() {
-        return etudiantRepository.findAll().stream()
-                .map(Student::getMatricule)
+    public List<String> getAllRegistrationNumbers() {
+        return studentRepository.findAll().stream()
+                .map(Student::getRegistrationNumber)
                 .collect(Collectors.toList());
     }
 }

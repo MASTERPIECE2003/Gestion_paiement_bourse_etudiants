@@ -12,32 +12,32 @@ import java.util.Optional;
 public class AmountService {
 
     @Autowired
-    private AmountRepository montantRepository;
+    private AmountRepository amountRepository;
 
-    public List<Amount> getAllMontants() {
-        return montantRepository.findAll();
+    public List<Amount> getAllAmounts() {
+        return amountRepository.findAll();
     }
 
-    public Optional<Amount> getMontantById(Long id) {
-        return montantRepository.findById(id);
+    public Optional<Amount> getAmountById(Long id) {
+        return amountRepository.findById(id);
     }
 
-    public Amount saveMontant(Amount montant) {
-        return montantRepository.save(montant);
+    public Amount saveAmount(Amount amount) {
+        return amountRepository.save(amount);
     }
 
-    public Amount updateMontant(Long id, Amount montant) {
-        Amount existingMontant = montantRepository.findById(id)
+    public Amount updateAmount(Long id, Amount amount) {
+        Amount existingAmount = amountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Montant non trouvé avec id: " + id));
 
-        existingMontant.setNiveau(montant.getNiveau());
-        existingMontant.setMontant(montant.getMontant());
+        existingAmount.setLevel(amount.getLevel());
+        existingAmount.setAmount(amount.getAmount());
 
-        return montantRepository.save(existingMontant);
+        return amountRepository.save(existingAmount);
     }
 
-    public void deleteMontant(Long id) {
-        montantRepository.deleteById(id);
+    public void deleteAmount(Long id) {
+        amountRepository.deleteById(id);
     }
 }
 

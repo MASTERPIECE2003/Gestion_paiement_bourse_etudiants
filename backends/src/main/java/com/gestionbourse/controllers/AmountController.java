@@ -13,32 +13,32 @@ import java.util.List;
 public class AmountController {
 
     @Autowired
-    private AmountService montantService;
+    private AmountService amountService;
 
     @GetMapping
-    public List<Amount> getAllMontants() {
-        return montantService.getAllMontants();
+    public List<Amount> getAllAmounts() {
+        return amountService.getAllAmounts();
     }
 
     @GetMapping("/{id}")
-    public Amount getMontantById(@PathVariable Long id) {
-        return montantService.getMontantById(id)
+    public Amount getAmountById(@PathVariable Long id) {
+        return amountService.getAmountById(id)
                 .orElseThrow(() -> new RuntimeException("Montant non trouvé avec id: " + id));
     }
 
     @PostMapping
-    public Amount saveMontant(@RequestBody Amount montant) {
-        return montantService.saveMontant(montant);
+    public Amount saveAmount(@RequestBody Amount amount) {
+        return amountService.saveAmount(amount);
     }
 
     @PutMapping("/{id}")
-    public Amount updateMontant(@PathVariable Long id, @RequestBody Amount montant) {
-        return montantService.updateMontant(id, montant);
+    public Amount updateAmount(@PathVariable Long id, @RequestBody Amount amount) {
+        return amountService.updateAmount(id, amount);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMontant(@PathVariable Long id) {
-        montantService.deleteMontant(id);
+    public void deleteAmount(@PathVariable Long id) {
+        amountService.deleteAmount(id);
     }
 }
 
