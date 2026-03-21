@@ -20,8 +20,8 @@ services:
 
   app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: backends
+      dockerfile: ./../backends/Dockerfile
     container_name: fs-app
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/${POSTGRES_DB}
