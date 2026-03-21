@@ -21,7 +21,9 @@ jobs:
           cache: gradle
 
       - name: Make Gradle wrapper executable
-        run: chmod +x ./gradlew
+        run: |
+          chmod +x backends/gradlew
+          backends/gradlew --no-daemon clean test bootJar
 
       - name: Run tests
         env:

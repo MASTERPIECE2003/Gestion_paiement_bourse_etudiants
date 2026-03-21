@@ -5,42 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ffe18240-c79b-4879-9995-a75629fdca57" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backends/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backends/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backends/src/main/resources/application.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backends/src/test/resources/application-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/JAVA.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backends/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/GestionbourseApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/GestionbourseApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/controllers/EtudiantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/controllers/EtudiantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/controllers/MontantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/controllers/MontantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/controllers/PayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/controllers/PayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/models/Etudiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/models/Etudiant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/models/Montant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/models/Montant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/models/Payer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/models/Payer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/repository/EtudiantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/repository/EtudiantRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/repository/MontantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/repository/MontantRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/repository/PayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/repository/PayerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/service/EtudiantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/service/EtudiantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/service/MontantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/service/MontantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/java/com/gestionbourse/service/PayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/main/java/com/gestionbourse/service/PayerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionbourse/src/test/java/com/gestionbourse/GestionbourseApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/test/java/com/gestionbourse/GestionbourseApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionboursefront" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,28 +50,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\M4STERPIECE\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.3\\plugins\\Shell Script\\shellcheck.exe&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHELLCHECK.PATH": "C:\\Users\\M4STERPIECE\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.3\\plugins\\Shell Script\\shellcheck.exe",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="GestionbourseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="backend" />
@@ -139,6 +104,7 @@
       <workItem from="1774104872090" duration="331000" />
       <workItem from="1774105814306" duration="507000" />
       <workItem from="1774106389994" duration="235000" />
+      <workItem from="1774127911740" duration="68000" />
     </task>
     <servers />
   </component>
