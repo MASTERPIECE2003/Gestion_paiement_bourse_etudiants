@@ -14,17 +14,17 @@ import java.util.Optional;
 public class StudentController {
 
     @Autowired
-    private StudentService etudiantService;
+    private StudentService studentService;
 
     @GetMapping
-    public List<Student> getAllEtudiants() {
-        return etudiantService.getAllEtudiants();
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
     @GetMapping("/matricule/{matricule}")
-    public ResponseEntity<Student> getEtudiantByMatricule(@PathVariable String matricule) {
-        Optional<Student> etudiantOptional = etudiantService.getEtudiantByMatricule(matricule);
-        if (etudiantOptional.isPresent()) {
-            return ResponseEntity.ok(etudiantOptional.get());
+    public ResponseEntity<Student> getStudentByRegistrationNumber(@PathVariable String matricule) {
+        Optional<Student> studentOptional = studentService.getStudentByRegistrationNumber(matricule);
+        if (studentOptional.isPresent()) {
+            return ResponseEntity.ok(studentOptional.get());
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -32,38 +32,38 @@ public class StudentController {
 
 
     @PostMapping
-    public Student saveEtudiant(@RequestBody Student etudiant) {
-        return etudiantService.saveEtudiant(etudiant);
+    public Student saveStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
     }
 
     @PutMapping("/{id}")
-    public Student updateEtudiant(@PathVariable String id, @RequestBody Student etudiant) {
-        return etudiantService.updateEtudiant(id, etudiant);
+    public Student updateStudent(@PathVariable String id, @RequestBody Student student) {
+        return studentService.updateStudent(id, student);
     }
 
     @GetMapping("/nom/{nom}")
-    public List<Student> getEtudiantByNom(@PathVariable String nom) {
-        return etudiantService.getEtudiantByNom(nom);
+    public List<Student> getStudentsByName(@PathVariable String nom) {
+        return studentService.getStudentsByName(nom);
     }
 
     @GetMapping("/niveau/{niveau}/institution/{institution}")
-    public List<Student> getEtudiantsByNiveauAndInstitution(@PathVariable String niveau, @PathVariable String institution) {
-        return etudiantService.getEtudiantsByNiveauAndInstitution(niveau, institution);
+    public List<Student> getStudentsByLevelAndInstitution(@PathVariable String niveau, @PathVariable String institution) {
+        return studentService.getStudentsByLevelAndInstitution(niveau, institution);
     }
 
     @GetMapping("/mineurs")
-    public List<Student> getEtudiantsMineurs() {
-        return etudiantService.getEtudiantsMineurs();
+    public List<Student> getMinorStudents() {
+        return studentService.getMinorStudents();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEtudiant(@PathVariable String id) {
-        etudiantService.deleteEtudiant(id);
+    public void deleteStudent(@PathVariable String id) {
+        studentService.deleteStudent(id);
     }
 
     @GetMapping("/matricules")
-    public List<String> getAllMatricules() {
-        return etudiantService.getAllMatricules();
+    public List<String> getAllRegistrationNumbers() {
+        return studentService.getAllRegistrationNumbers();
     }
 }
 

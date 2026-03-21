@@ -21,90 +21,90 @@ import java.util.Optional;
 public class PaymentService {
 
     @Autowired
-    private PaymentRepository payerRepository;
+    private PaymentRepository paymentRepository;
 
     @Autowired
-    private StudentRepository etudiantRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    private AmountRepository montantRepository;
+    private AmountRepository amountRepository;
 
     @Autowired
     private JavaMailSender javaMailSender;
 
 
-    public List<Payment> getAllPayers() {
-        return payerRepository.findAll();
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
     }
 
-    public Optional<Payment> getPayerById(Long id) {
-        return payerRepository.findById(id);
+    public Optional<Payment> getPaymentById(Long id) {
+        return paymentRepository.findById(id);
     }
 
-    public Payment savePayer(Payment payer) {
-        if (payer.getEtudiant() == null || payer.getEtudiant().getMatricule() == null) {
+    public Payment savePayment(Payment payment) {
+        if (payment.getStudent() == null || payment.getStudent().getRegistrationNumber() == null) {
             throw new RuntimeException("L'étudiant ou le matricule ne peut pas être null");
         }
-        Student etudiant = etudiantRepository.findById(payer.getEtudiant().getMatricule())
-                .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + payer.getEtudiant().getMatricule()));
-        payer.setEtudiant(etudiant);
-        return payerRepository.save(payer);
+        Student student = studentRepository.findById(payment.getStudent().getRegistrationNumber())
+                .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + payment.getStudent().getRegistrationNumber()));
+        payment.setStudent(student);
+        return paymentRepository.save(payment);
     }
 
-    public Payment updatePayer(Long id, Payment payer) {
-        Payment existingPayer = payerRepository.findById(id)
+    public Payment updatePayment(Long id, Payment payment) {
+        Payment existingPayment = paymentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Payer non trouvé avec id: " + id));
 
-        existingPayer.setEtudiant(payer.getEtudiant());
-        existingPayer.setAnnee_univ(payer.getAnnee_univ());
-        existingPayer.setDate(payer.getDate());
-        existingPayer.setNbrMois(payer.getNbrMois());
+        existingPayment.setStudent(payment.getStudent());
+        existingPayment.setAcademicYear(payment.getAcademicYear());
+        existingPayment.setDate(payment.getDate());
+        existingPayment.setNumberOfMonths(payment.getNumberOfMonths());
 
-        return payerRepository.save(existingPayer);
+        return paymentRepository.save(existingPayment);
     }
 
-    public List<Payment> getRetardatairesPourUnMois(LocalDate start, LocalDate end) {
-        return payerRepository.findByDateBeforeAndNbrMoisLessThan(end, 1);
+    public List<Payment> getLatePaymentsForMonth(LocalDate start, LocalDate end) {
+        return paymentRepository.findByDateBeforeAndNumberOfMonthsLessThan(end, 1);
     }
 
-    public void deletePayer(Long id) {
-        payerRepository.deleteById(id);
+    public void deletePayment(Long id) {
+        paymentRepository.deleteById(id);
     }
 
-    public List<Payment> getPaymentsByEtudiantMatricule(String matricule) {
-        Student etudiant = etudiantRepository.findById(matricule)
-                .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + matricule));
-        return payerRepository.findByEtudiant(etudiant);
+    public List<Payment> getPaymentsByStudentRegistrationNumber(String registrationNumber) {
+        Student student = studentRepository.findById(registrationNumber)
+                .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + registrationNumber));
+        return paymentRepository.findByStudent(student);
     }
 
     public double calculateTotalAmount(String matricule) {
-        Student etudiant = etudiantRepository.findById(matricule)
+        Student student = studentRepository.findById(matricule)
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + matricule));
-        String niveau = etudiant.getNiveau();
+        String level = student.getLevel();
 
-        List<Amount> montants = montantRepository.findByNiveau(niveau);
-        if (montants.isEmpty()) {
-            throw new RuntimeException("Montant non trouvé pour niveau: " + niveau);
+        List<Amount> amounts = amountRepository.findByLevel(level);
+        if (amounts.isEmpty()) {
+            throw new RuntimeException("Montant non trouvé pour niveau: " + level);
         }
 
-        Amount montant = montants.get(0);
+        Amount amount = amounts.get(0);
 
-        List<Payment> payments = payerRepository.findByEtudiant(etudiant);
-        return payments.stream().mapToDouble(payment -> payment.getNbrMois() * montant.getMontant()).sum();
+        List<Payment> payments = paymentRepository.findByStudent(student);
+        return payments.stream().mapToDouble(payment -> payment.getNumberOfMonths() * amount.getAmount()).sum();
     }
 
     public List<Payment> findLatePayments() {
         LocalDate threeWeeksAgo = LocalDate.now().minusWeeks(3);
-        return payerRepository.findByDateBeforeAndNbrMoisLessThan(threeWeeksAgo, 1);
+        return paymentRepository.findByDateBeforeAndNumberOfMonthsLessThan(threeWeeksAgo, 1);
     }
 
     // Méthode pour envoyer des notifications par email
     public void sendLatePaymentNotifications() {
         List<Payment> latePayments = findLatePayments();
-        for (Payment payer : latePayments) {
-            Student etudiant = payer.getEtudiant();
-            if (etudiant.getMail() != null) {
-                sendEmail(etudiant.getMail(), "Notification de retard de paiement", "Cher " + etudiant.getNom() + ",\n\nVous avez un retard de paiement. Veuillez régulariser votre situation dans les plus brefs délais.\n\nMerci.");
+        for (Payment payment : latePayments) {
+            Student student = payment.getStudent();
+            if (student.getMail() != null) {
+                sendEmail(student.getMail(), "Notification de retard de paiement", "Cher " + student.getName() + ",\n\nVous avez un retard de paiement. Veuillez régulariser votre situation dans les plus brefs délais.\n\nMerci.");
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.gestionbourse.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -18,27 +19,33 @@ public class Payment {
     private int nbrMois;
 
     // Getters and Setters
-    public Long getIdpaye() {
+    @JsonProperty("idpaye")
+    public Long getPaymentId() {
         return idpaye;
     }
 
-    public void setIdpaye(Long idpaye) {
+    @JsonProperty("idpaye")
+    public void setPaymentId(Long idpaye) {
         this.idpaye = idpaye;
     }
 
-    public Student getEtudiant() {
+    @JsonProperty("etudiant")
+    public Student getStudent() {
         return etudiant;
     }
 
-    public void setEtudiant(Student etudiant) {
+    @JsonProperty("etudiant")
+    public void setStudent(Student etudiant) {
         this.etudiant = etudiant;
     }
 
-    public String getAnnee_univ() {
+    @JsonProperty("annee_univ")
+    public String getAcademicYear() {
         return annee_univ;
     }
 
-    public void setAnnee_univ(String annee_univ) {
+    @JsonProperty("annee_univ")
+    public void setAcademicYear(String annee_univ) {
         this.annee_univ = annee_univ;
     }
 
@@ -50,11 +57,13 @@ public class Payment {
         this.date = date;
     }
 
-    public int getNbrMois() {
+    @JsonProperty("nbrMois")
+    public int getNumberOfMonths() {
         return nbrMois;
     }
 
-    public void setNbrMois(int nbrMois) {
+    @JsonProperty("nbrMois")
+    public void setNumberOfMonths(int nbrMois) {
         this.nbrMois = nbrMois;
     }
 }

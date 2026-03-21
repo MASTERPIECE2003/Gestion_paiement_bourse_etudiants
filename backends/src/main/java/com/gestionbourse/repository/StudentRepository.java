@@ -2,6 +2,8 @@ package com.gestionbourse.repository;
 
 import com.gestionbourse.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,9 +11,16 @@ import java.util.Date;
 import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String> {
-    Optional<Student> findByMatricule(String matricule);
-    List<Student> findByNomContaining(String nom);
-    List<Student> findByNiveauAndInstitution(String niveau, String institution);
-    List<Student> findByDatenaisAfter(Date date);
+    @Query("SELECT s FROM Student s WHERE s.matricule = :registrationNumber")
+    Optional<Student> findByRegistrationNumber(@Param("registrationNumber") String registrationNumber);
+
+    @Query("SELECT s FROM Student s WHERE s.nom LIKE CONCAT('%', :name, '%')")
+    List<Student> findByNameContaining(@Param("name") String name);
+
+    @Query("SELECT s FROM Student s WHERE s.niveau = :level AND s.institution = :institution")
+    List<Student> findByLevelAndInstitution(@Param("level") String level, @Param("institution") String institution);
+
+    @Query("SELECT s FROM Student s WHERE s.datenais > :birthDate")
+    List<Student> findByBirthDateAfter(@Param("birthDate") Date birthDate);
 }
 

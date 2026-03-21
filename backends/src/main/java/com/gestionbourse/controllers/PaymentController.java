@@ -1,5 +1,6 @@
 package com.gestionbourse.controllers;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gestionbourse.models.Student;
 import com.gestionbourse.models.Payment;
 import com.gestionbourse.repository.StudentRepository;
@@ -30,49 +31,49 @@ import java.util.List;
 public class PaymentController {
 
     @Autowired
-    private PaymentService payerService;
+    private PaymentService paymentService;
 
     @Autowired
-    private StudentRepository etudiantRepository;
+    private StudentRepository studentRepository;
 
     @GetMapping
-    public List<Payment> getAllPayers() {
-        return payerService.getAllPayers();
+    public List<Payment> getAllPayments() {
+        return paymentService.getAllPayments();
     }
 
     @GetMapping("/{id}")
-    public Payment getPayerById(@PathVariable Long id) {
-        return payerService.getPayerById(id)
+    public Payment getPaymentById(@PathVariable Long id) {
+        return paymentService.getPaymentById(id)
                 .orElseThrow(() -> new RuntimeException("Payer non trouvé avec id: " + id));
     }
 
     @PostMapping
-    public Payment savePayer(@RequestBody Payment payer) {
-        return payerService.savePayer(payer);
+    public Payment savePayment(@RequestBody Payment payment) {
+        return paymentService.savePayment(payment);
     }
 
     @PutMapping("/{id}")
-    public Payment updatePayer(@PathVariable Long id, @RequestBody Payment payer) {
-        return payerService.updatePayer(id, payer);
+    public Payment updatePayment(@PathVariable Long id, @RequestBody Payment payment) {
+        return paymentService.updatePayment(id, payment);
     }
 
     @GetMapping("/retardataires/{start}/{end}")
-    public List<Payment> getRetardatairesPourUnMois(@PathVariable LocalDate start, @PathVariable LocalDate end) {
-        return payerService.getRetardatairesPourUnMois(start, end);
+    public List<Payment> getLatePaymentsForMonth(@PathVariable LocalDate start, @PathVariable LocalDate end) {
+        return paymentService.getLatePaymentsForMonth(start, end);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePayer(@PathVariable Long id) {
-        payerService.deletePayer(id);
+    public void deletePayment(@PathVariable Long id) {
+        paymentService.deletePayment(id);
     }
 
     @GetMapping("/recu/{matricule}")
     public ResponseEntity<byte[]> generateReceipt(@PathVariable String matricule) {
-        Student etudiant = etudiantRepository.findById(matricule)
+        Student student = studentRepository.findById(matricule)
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + matricule));
-        double totalAmount = payerService.calculateTotalAmount(matricule);
-        List<Payment> payments = payerService.getPaymentsByEtudiantMatricule(matricule);
-        byte[] pdfBytes = generatePdf(etudiant, payments, totalAmount);
+        double totalAmount = paymentService.calculateTotalAmount(matricule);
+        List<Payment> payments = paymentService.getPaymentsByStudentRegistrationNumber(matricule);
+        byte[] pdfBytes = generatePdf(student, payments, totalAmount);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("attachment", "recu_paiement.pdf");
@@ -83,7 +84,7 @@ public class PaymentController {
     @PostMapping("/send-email")
     public ResponseEntity<String> sendEmail(@RequestBody EmailRequest emailRequest) {
         try {
-            payerService.sendEmail(emailRequest.getRecipientEmail(), "Notification de retard de paiement", "Cher étudiant,\n\nVous avez un retard de paiement. Veuillez régulariser votre situation dans les plus brefs délais.\n\nMerci.");
+            paymentService.sendEmail(emailRequest.getRecipientEmail(), "Notification de retard de paiement", "Cher étudiant,\n\nVous avez un retard de paiement. Veuillez régulariser votre situation dans les plus brefs délais.\n\nMerci.");
             return ResponseEntity.ok("Email envoyé avec succès !");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de l'envoi de l'email : " + e.getMessage());
@@ -95,11 +96,13 @@ public class PaymentController {
         private String recipientEmail;
 
         // Getters et setters
-        public String getMatricule() {
+        @JsonProperty("matricule")
+        public String getRegistrationNumber() {
             return matricule;
         }
 
-        public void setMatricule(String matricule) {
+        @JsonProperty("matricule")
+        public void setRegistrationNumber(String matricule) {
             this.matricule = matricule;
         }
 
@@ -112,7 +115,7 @@ public class PaymentController {
         }
     }
 
-    private byte[] generatePdf(Student etudiant, List<Payment> payments, double totalAmount) {
+    private byte[] generatePdf(Student student, List<Payment> payments, double totalAmount) {
         Document document = new Document();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -121,14 +124,14 @@ public class PaymentController {
             PdfWriter.getInstance(document, baos);
             document.open();
             document.add(new Paragraph("Aujourd'hui le " + LocalDate.now().format(dateFormatter)));
-            document.add(new Paragraph("Matricule : " + etudiant.getMatricule()));
-            document.add(new Paragraph("Nom: " + etudiant.getNom()));
+            document.add(new Paragraph("Matricule : " + student.getRegistrationNumber()));
+            document.add(new Paragraph("Nom: " + student.getName()));
 
-            LocalDate dateNais = etudiant.getDatenais().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateNais = student.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             document.add(new Paragraph("Née le : " + dateNais.format(dateFormatter)));
 
-            document.add(new Paragraph("Sexe: " + etudiant.getSexe()));
-            document.add(new Paragraph("Institution : " + etudiant.getInstitution() + " / Niveau : " + etudiant.getNiveau()));
+            document.add(new Paragraph("Sexe: " + student.getGender()));
+            document.add(new Paragraph("Institution : " + student.getInstitution() + " / Niveau : " + student.getLevel()));
 
             document.add(new Paragraph(" "));
 
@@ -161,7 +164,7 @@ public class PaymentController {
                 cellMonth.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cellMonth);
 
-                PdfPCell cellAmount = new PdfPCell(new Paragraph(payment.getNbrMois() + ""));
+                PdfPCell cellAmount = new PdfPCell(new Paragraph(payment.getNumberOfMonths() + ""));
                 cellAmount.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cellAmount);
             }
