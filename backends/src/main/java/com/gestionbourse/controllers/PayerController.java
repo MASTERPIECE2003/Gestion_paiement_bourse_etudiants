@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/payers")
+@RequestMapping("/v1/payers")
 public class PayerController {
 
     @Autowired
