@@ -1,14 +1,22 @@
 package com.gestionbourse.dto.student;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.util.Date;
 
-public record StudentResponseDTO(
-        String matricule,
-        String nom,
-        String sexe,
-        Date datenais,
-        String institution,
-        String niveau,
-        String mail,
-        String annee_univ
-) {}
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class StudentResponseDTO {
+    private String matricule;
+    private String nom;
+    private String sexe;
+    private Date datenais;
+    private String institution;
+    private String niveau;
+    private String mail;
+    private String annee_univ;
+}

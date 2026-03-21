@@ -2,69 +2,33 @@ package com.gestionbourse.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idpaye;
+    @Column(name = "idpaye")
+    @JsonProperty("idpaye")
+    private Long paymentId;
 
     @ManyToOne
     @JoinColumn(name = "matricule", nullable = false)
-    private Student etudiant;
+    @JsonProperty("etudiant")
+    private Student student;
 
-    private String annee_univ;
+    @Column(name = "annee_univ")
+    @JsonProperty("annee_univ")
+    private String academicYear;
+
     private LocalDate date;
-    private int nbrMois;
 
-    // Getters and Setters
-    @JsonProperty("idpaye")
-    public Long getPaymentId() {
-        return idpaye;
-    }
-
-    @JsonProperty("idpaye")
-    public void setPaymentId(Long idpaye) {
-        this.idpaye = idpaye;
-    }
-
-    @JsonProperty("etudiant")
-    public Student getStudent() {
-        return etudiant;
-    }
-
-    @JsonProperty("etudiant")
-    public void setStudent(Student etudiant) {
-        this.etudiant = etudiant;
-    }
-
-    @JsonProperty("annee_univ")
-    public String getAcademicYear() {
-        return annee_univ;
-    }
-
-    @JsonProperty("annee_univ")
-    public void setAcademicYear(String annee_univ) {
-        this.annee_univ = annee_univ;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
+    @Column(name = "nbrMois")
     @JsonProperty("nbrMois")
-    public int getNumberOfMonths() {
-        return nbrMois;
-    }
-
-    @JsonProperty("nbrMois")
-    public void setNumberOfMonths(int nbrMois) {
-        this.nbrMois = nbrMois;
-    }
+    private int numberOfMonths;
 }
 

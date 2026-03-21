@@ -1,48 +1,30 @@
 package com.gestionbourse.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Amount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Utilisation de l'auto-incrémentation pour idniv
-    private Long idniv; // Utilisation de Long pour l'auto-incrémentation en PostgreSQL
-    private String niveau;
-    private int montant;
-
-    // Getters and Setters
+    @Column(name = "idniv")
     @JsonProperty("idniv")
-    public Long getLevelId() {
-        return idniv;
-    }
+    private Long levelId; // Utilisation de Long pour l'auto-incrémentation en PostgreSQL
 
-    @JsonProperty("idniv")
-    public void setLevelId(Long idniv) {
-        this.idniv = idniv;
-    }
-
+    @Column(name = "niveau")
     @JsonProperty("niveau")
-    public String getLevel() {
-        return niveau;
-    }
+    private String level;
 
-    @JsonProperty("niveau")
-    public void setLevel(String niveau) {
-        this.niveau = niveau;
-    }
-
+    @Column(name = "montant")
     @JsonProperty("montant")
-    public int getAmount() {
-        return montant;
-    }
-
-    @JsonProperty("montant")
-    public void setAmount(int montant) {
-        this.montant = montant;
-    }
+    private int amount;
 }
 

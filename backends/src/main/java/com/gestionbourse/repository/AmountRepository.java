@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface AmountRepository extends JpaRepository<Amount, Long> {
-    @Query("SELECT a FROM Amount a WHERE a.niveau = :level")
+    @Query("SELECT a FROM Amount a WHERE a.level = :level")
     List<Amount> findByLevel(@Param("level") String level);
 }
 

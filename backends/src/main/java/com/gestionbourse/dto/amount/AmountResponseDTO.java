@@ -1,7 +1,16 @@
 package com.gestionbourse.dto.amount;
 
-public record AmountResponseDTO(
-        Long idniv,
-        String niveau,
-        int montant
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class AmountResponseDTO {
+    private Long idniv;
+    private String niveau;
+    private int montant;
+}
