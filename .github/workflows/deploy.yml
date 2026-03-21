@@ -4,6 +4,10 @@ on:
   push:
     branches: [main, develop]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-test:
     name: Build and test
@@ -72,6 +76,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: package-artifact
     if: github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
@@ -80,14 +87,13 @@ jobs:
       - name: Set image tags
         id: tags
         run: |
-            # Conversion en minuscules obligatoire pour GHCR
-            OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-            BRANCH_TAG="${GITHUB_REF_NAME}"
-            SHA_TAG="${GITHUB_SHA::7}"
-            IMAGE_BASE="ghcr.io/${OWNER}/financial-student-backends"
-            echo "image_base=${IMAGE_BASE}" >> "$GITHUB_OUTPUT"
-            echo "branch_tag=${BRANCH_TAG}" >> "$GITHUB_OUTPUT"
-            echo "sha_tag=${SHA_TAG}" >> "$GITHUB_OUTPUT"
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          BRANCH_TAG="${GITHUB_REF_NAME}"
+          SHA_TAG="${GITHUB_SHA::7}"
+          IMAGE_BASE="ghcr.io/${OWNER}/financial-student-backends"
+          echo "image_base=${IMAGE_BASE}" >> "$GITHUB_OUTPUT"
+          echo "branch_tag=${BRANCH_TAG}" >> "$GITHUB_OUTPUT"
+          echo "sha_tag=${SHA_TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -152,4 +158,3 @@ jobs:
 
           echo "Running production deployment command"
           bash -lc "$DEPLOY_CMD"
-
