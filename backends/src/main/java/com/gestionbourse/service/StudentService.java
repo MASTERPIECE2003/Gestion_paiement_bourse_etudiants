@@ -1,7 +1,7 @@
 package com.gestionbourse.service;
 
-import com.gestionbourse.models.Etudiant;
-import com.gestionbourse.repository.EtudiantRepository;
+import com.gestionbourse.models.Student;
+import com.gestionbourse.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,27 +12,27 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class EtudiantService {
+public class StudentService {
     @Autowired
-    private EtudiantRepository etudiantRepository;
+    private StudentRepository etudiantRepository;
 
-    public List<Etudiant> getAllEtudiants() {
+    public List<Student> getAllEtudiants() {
         return etudiantRepository.findAll();
     }
 
-    public Optional<Etudiant> getEtudiantById(String id) {
+    public Optional<Student> getEtudiantById(String id) {
         return etudiantRepository.findById(id);
     }
 
-    public Etudiant saveEtudiant(Etudiant etudiant) {
+    public Student saveEtudiant(Student etudiant) {
         if (etudiantRepository.findByMatricule(etudiant.getMatricule()).isPresent()) {
             throw new RuntimeException("Un étudiant avec ce matricule existe déjà : " + etudiant.getMatricule());
         }
         return etudiantRepository.save(etudiant);
     }
 
-    public Etudiant updateEtudiant(String id, Etudiant etudiant) {
-        Etudiant existingEtudiant = etudiantRepository.findById(id)
+    public Student updateEtudiant(String id, Student etudiant) {
+        Student existingEtudiant = etudiantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec id: " + id));
         existingEtudiant.setNom(etudiant.getNom());
         existingEtudiant.setSexe(etudiant.getSexe());
@@ -45,19 +45,19 @@ public class EtudiantService {
         return etudiantRepository.save(existingEtudiant);
     }
 
-    public Optional<Etudiant> getEtudiantByMatricule(String matricule) {
+    public Optional<Student> getEtudiantByMatricule(String matricule) {
         return etudiantRepository.findByMatricule(matricule);
     }
 
-    public List<Etudiant> getEtudiantByNom(String nom) {
+    public List<Student> getEtudiantByNom(String nom) {
         return etudiantRepository.findByNomContaining(nom);
     }
 
-    public List<Etudiant> getEtudiantsByNiveauAndInstitution(String niveau, String institution) {
+    public List<Student> getEtudiantsByNiveauAndInstitution(String niveau, String institution) {
         return etudiantRepository.findByNiveauAndInstitution(niveau, institution);
     }
 
-    public List<Etudiant> getEtudiantsMineurs() {
+    public List<Student> getEtudiantsMineurs() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -18);
         Date date = calendar.getTime();
@@ -70,8 +70,9 @@ public class EtudiantService {
 
     public List<String> getAllMatricules() {
         return etudiantRepository.findAll().stream()
-                .map(Etudiant::getMatricule)
+                .map(Student::getMatricule)
                 .collect(Collectors.toList());
     }
 }
+
 

@@ -1,9 +1,9 @@
 package com.gestionbourse.controllers;
 
-import com.gestionbourse.models.Etudiant;
-import com.gestionbourse.models.Payer;
-import com.gestionbourse.repository.EtudiantRepository;
-import com.gestionbourse.service.PayerService;
+import com.gestionbourse.models.Student;
+import com.gestionbourse.models.Payment;
+import com.gestionbourse.repository.StudentRepository;
+import com.gestionbourse.service.PaymentService;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -27,37 +27,37 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/${version.path}/payers")
-public class PayerController {
+public class PaymentController {
 
     @Autowired
-    private PayerService payerService;
+    private PaymentService payerService;
 
     @Autowired
-    private EtudiantRepository etudiantRepository;
+    private StudentRepository etudiantRepository;
 
     @GetMapping
-    public List<Payer> getAllPayers() {
+    public List<Payment> getAllPayers() {
         return payerService.getAllPayers();
     }
 
     @GetMapping("/{id}")
-    public Payer getPayerById(@PathVariable Long id) {
+    public Payment getPayerById(@PathVariable Long id) {
         return payerService.getPayerById(id)
                 .orElseThrow(() -> new RuntimeException("Payer non trouvé avec id: " + id));
     }
 
     @PostMapping
-    public Payer savePayer(@RequestBody Payer payer) {
+    public Payment savePayer(@RequestBody Payment payer) {
         return payerService.savePayer(payer);
     }
 
     @PutMapping("/{id}")
-    public Payer updatePayer(@PathVariable Long id, @RequestBody Payer payer) {
+    public Payment updatePayer(@PathVariable Long id, @RequestBody Payment payer) {
         return payerService.updatePayer(id, payer);
     }
 
     @GetMapping("/retardataires/{start}/{end}")
-    public List<Payer> getRetardatairesPourUnMois(@PathVariable LocalDate start, @PathVariable LocalDate end) {
+    public List<Payment> getRetardatairesPourUnMois(@PathVariable LocalDate start, @PathVariable LocalDate end) {
         return payerService.getRetardatairesPourUnMois(start, end);
     }
 
@@ -68,10 +68,10 @@ public class PayerController {
 
     @GetMapping("/recu/{matricule}")
     public ResponseEntity<byte[]> generateReceipt(@PathVariable String matricule) {
-        Etudiant etudiant = etudiantRepository.findById(matricule)
+        Student etudiant = etudiantRepository.findById(matricule)
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + matricule));
         double totalAmount = payerService.calculateTotalAmount(matricule);
-        List<Payer> payments = payerService.getPaymentsByEtudiantMatricule(matricule);
+        List<Payment> payments = payerService.getPaymentsByEtudiantMatricule(matricule);
         byte[] pdfBytes = generatePdf(etudiant, payments, totalAmount);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
@@ -112,7 +112,7 @@ public class PayerController {
         }
     }
 
-    private byte[] generatePdf(Etudiant etudiant, List<Payer> payments, double totalAmount) {
+    private byte[] generatePdf(Student etudiant, List<Payment> payments, double totalAmount) {
         Document document = new Document();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -156,7 +156,7 @@ public class PayerController {
             table.addCell(cellEquipementAmount);
 
             // Add payment rows
-            for (Payer payment : payments) {
+            for (Payment payment : payments) {
                 PdfPCell cellMonth = new PdfPCell(new Paragraph(payment.getDate().getMonth() + ""));
                 cellMonth.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cellMonth);
@@ -193,3 +193,4 @@ public class PayerController {
     }
 
 }
+

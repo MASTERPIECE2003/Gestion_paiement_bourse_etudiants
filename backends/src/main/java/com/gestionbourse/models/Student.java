@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import java.util.Date;
 
 @Entity
-public class Etudiant {
+public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "matricule", unique = true, updatable = false, nullable = false)
@@ -86,3 +86,4 @@ public class Etudiant {
         this.annee_univ = annee_univ;
     }
 }
+
