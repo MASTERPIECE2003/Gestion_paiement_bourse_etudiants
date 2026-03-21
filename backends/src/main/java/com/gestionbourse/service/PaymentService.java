@@ -1,11 +1,11 @@
 package com.gestionbourse.service;
 
-import com.gestionbourse.models.Etudiant;
-import com.gestionbourse.models.Payer;
-import com.gestionbourse.models.Montant;
-import com.gestionbourse.repository.PayerRepository;
-import com.gestionbourse.repository.EtudiantRepository;
-import com.gestionbourse.repository.MontantRepository;
+import com.gestionbourse.models.Student;
+import com.gestionbourse.models.Payment;
+import com.gestionbourse.models.Amount;
+import com.gestionbourse.repository.PaymentRepository;
+import com.gestionbourse.repository.StudentRepository;
+import com.gestionbourse.repository.AmountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,41 +18,41 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PayerService {
+public class PaymentService {
 
     @Autowired
-    private PayerRepository payerRepository;
+    private PaymentRepository payerRepository;
 
     @Autowired
-    private EtudiantRepository etudiantRepository;
+    private StudentRepository etudiantRepository;
 
     @Autowired
-    private MontantRepository montantRepository;
+    private AmountRepository montantRepository;
 
     @Autowired
     private JavaMailSender javaMailSender;
 
 
-    public List<Payer> getAllPayers() {
+    public List<Payment> getAllPayers() {
         return payerRepository.findAll();
     }
 
-    public Optional<Payer> getPayerById(Long id) {
+    public Optional<Payment> getPayerById(Long id) {
         return payerRepository.findById(id);
     }
 
-    public Payer savePayer(Payer payer) {
+    public Payment savePayer(Payment payer) {
         if (payer.getEtudiant() == null || payer.getEtudiant().getMatricule() == null) {
             throw new RuntimeException("L'étudiant ou le matricule ne peut pas être null");
         }
-        Etudiant etudiant = etudiantRepository.findById(payer.getEtudiant().getMatricule())
+        Student etudiant = etudiantRepository.findById(payer.getEtudiant().getMatricule())
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + payer.getEtudiant().getMatricule()));
         payer.setEtudiant(etudiant);
         return payerRepository.save(payer);
     }
 
-    public Payer updatePayer(Long id, Payer payer) {
-        Payer existingPayer = payerRepository.findById(id)
+    public Payment updatePayer(Long id, Payment payer) {
+        Payment existingPayer = payerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Payer non trouvé avec id: " + id));
 
         existingPayer.setEtudiant(payer.getEtudiant());
@@ -63,7 +63,7 @@ public class PayerService {
         return payerRepository.save(existingPayer);
     }
 
-    public List<Payer> getRetardatairesPourUnMois(LocalDate start, LocalDate end) {
+    public List<Payment> getRetardatairesPourUnMois(LocalDate start, LocalDate end) {
         return payerRepository.findByDateBeforeAndNbrMoisLessThan(end, 1);
     }
 
@@ -71,38 +71,38 @@ public class PayerService {
         payerRepository.deleteById(id);
     }
 
-    public List<Payer> getPaymentsByEtudiantMatricule(String matricule) {
-        Etudiant etudiant = etudiantRepository.findById(matricule)
+    public List<Payment> getPaymentsByEtudiantMatricule(String matricule) {
+        Student etudiant = etudiantRepository.findById(matricule)
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + matricule));
         return payerRepository.findByEtudiant(etudiant);
     }
 
     public double calculateTotalAmount(String matricule) {
-        Etudiant etudiant = etudiantRepository.findById(matricule)
+        Student etudiant = etudiantRepository.findById(matricule)
                 .orElseThrow(() -> new RuntimeException("Etudiant non trouvé avec matricule: " + matricule));
         String niveau = etudiant.getNiveau();
 
-        List<Montant> montants = montantRepository.findByNiveau(niveau);
+        List<Amount> montants = montantRepository.findByNiveau(niveau);
         if (montants.isEmpty()) {
             throw new RuntimeException("Montant non trouvé pour niveau: " + niveau);
         }
 
-        Montant montant = montants.get(0);
+        Amount montant = montants.get(0);
 
-        List<Payer> payments = payerRepository.findByEtudiant(etudiant);
+        List<Payment> payments = payerRepository.findByEtudiant(etudiant);
         return payments.stream().mapToDouble(payment -> payment.getNbrMois() * montant.getMontant()).sum();
     }
 
-    public List<Payer> findLatePayments() {
+    public List<Payment> findLatePayments() {
         LocalDate threeWeeksAgo = LocalDate.now().minusWeeks(3);
         return payerRepository.findByDateBeforeAndNbrMoisLessThan(threeWeeksAgo, 1);
     }
 
     // Méthode pour envoyer des notifications par email
     public void sendLatePaymentNotifications() {
-        List<Payer> latePayments = findLatePayments();
-        for (Payer payer : latePayments) {
-            Etudiant etudiant = payer.getEtudiant();
+        List<Payment> latePayments = findLatePayments();
+        for (Payment payer : latePayments) {
+            Student etudiant = payer.getEtudiant();
             if (etudiant.getMail() != null) {
                 sendEmail(etudiant.getMail(), "Notification de retard de paiement", "Cher " + etudiant.getNom() + ",\n\nVous avez un retard de paiement. Veuillez régulariser votre situation dans les plus brefs délais.\n\nMerci.");
             }
@@ -122,3 +122,4 @@ public class PayerService {
         sendLatePaymentNotifications();
     }
 }
+

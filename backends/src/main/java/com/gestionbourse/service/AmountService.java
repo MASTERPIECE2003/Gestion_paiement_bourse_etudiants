@@ -1,7 +1,7 @@
 package com.gestionbourse.service;
 
-import com.gestionbourse.models.Montant;
-import com.gestionbourse.repository.MontantRepository;
+import com.gestionbourse.models.Amount;
+import com.gestionbourse.repository.AmountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,25 +9,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MontantService {
+public class AmountService {
 
     @Autowired
-    private MontantRepository montantRepository;
+    private AmountRepository montantRepository;
 
-    public List<Montant> getAllMontants() {
+    public List<Amount> getAllMontants() {
         return montantRepository.findAll();
     }
 
-    public Optional<Montant> getMontantById(Long id) {
+    public Optional<Amount> getMontantById(Long id) {
         return montantRepository.findById(id);
     }
 
-    public Montant saveMontant(Montant montant) {
+    public Amount saveMontant(Amount montant) {
         return montantRepository.save(montant);
     }
 
-    public Montant updateMontant(Long id, Montant montant) {
-        Montant existingMontant = montantRepository.findById(id)
+    public Amount updateMontant(Long id, Amount montant) {
+        Amount existingMontant = montantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Montant non trouvé avec id: " + id));
 
         existingMontant.setNiveau(montant.getNiveau());
@@ -40,3 +40,4 @@ public class MontantService {
         montantRepository.deleteById(id);
     }
 }
+

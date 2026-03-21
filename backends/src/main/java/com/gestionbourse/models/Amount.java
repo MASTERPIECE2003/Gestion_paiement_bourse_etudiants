@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Montant {
+public class Amount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Utilisation de l'auto-incrémentation pour idniv
     private Long idniv; // Utilisation de Long pour l'auto-incrémentation en PostgreSQL
@@ -38,3 +38,4 @@ public class Montant {
         this.montant = montant;
     }
 }
+

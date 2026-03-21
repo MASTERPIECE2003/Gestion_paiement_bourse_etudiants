@@ -1,29 +1,28 @@
 package com.gestionbourse.controllers;
 
-import com.gestionbourse.models.Etudiant;
-import com.gestionbourse.service.EtudiantService;
+import com.gestionbourse.models.Student;
+import com.gestionbourse.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/etudiants")
-public class EtudiantController {
+@RequestMapping("/${version.path}/etudiants")
+public class StudentController {
 
     @Autowired
-    private EtudiantService etudiantService;
+    private StudentService etudiantService;
 
     @GetMapping
-    public List<Etudiant> getAllEtudiants() {
+    public List<Student> getAllEtudiants() {
         return etudiantService.getAllEtudiants();
     }
     @GetMapping("/matricule/{matricule}")
-    public ResponseEntity<Etudiant> getEtudiantByMatricule(@PathVariable String matricule) {
-        Optional<Etudiant> etudiantOptional = etudiantService.getEtudiantByMatricule(matricule);
+    public ResponseEntity<Student> getEtudiantByMatricule(@PathVariable String matricule) {
+        Optional<Student> etudiantOptional = etudiantService.getEtudiantByMatricule(matricule);
         if (etudiantOptional.isPresent()) {
             return ResponseEntity.ok(etudiantOptional.get());
         } else {
@@ -33,27 +32,27 @@ public class EtudiantController {
 
 
     @PostMapping
-    public Etudiant saveEtudiant(@RequestBody Etudiant etudiant) {
+    public Student saveEtudiant(@RequestBody Student etudiant) {
         return etudiantService.saveEtudiant(etudiant);
     }
 
     @PutMapping("/{id}")
-    public Etudiant updateEtudiant(@PathVariable String id, @RequestBody Etudiant etudiant) {
+    public Student updateEtudiant(@PathVariable String id, @RequestBody Student etudiant) {
         return etudiantService.updateEtudiant(id, etudiant);
     }
 
     @GetMapping("/nom/{nom}")
-    public List<Etudiant> getEtudiantByNom(@PathVariable String nom) {
+    public List<Student> getEtudiantByNom(@PathVariable String nom) {
         return etudiantService.getEtudiantByNom(nom);
     }
 
     @GetMapping("/niveau/{niveau}/institution/{institution}")
-    public List<Etudiant> getEtudiantsByNiveauAndInstitution(@PathVariable String niveau, @PathVariable String institution) {
+    public List<Student> getEtudiantsByNiveauAndInstitution(@PathVariable String niveau, @PathVariable String institution) {
         return etudiantService.getEtudiantsByNiveauAndInstitution(niveau, institution);
     }
 
     @GetMapping("/mineurs")
-    public List<Etudiant> getEtudiantsMineurs() {
+    public List<Student> getEtudiantsMineurs() {
         return etudiantService.getEtudiantsMineurs();
     }
 
@@ -67,3 +66,4 @@ public class EtudiantController {
         return etudiantService.getAllMatricules();
     }
 }
+

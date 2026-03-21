@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Payer {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idpaye;
 
     @ManyToOne
     @JoinColumn(name = "matricule", nullable = false)
-    private Etudiant etudiant;
+    private Student etudiant;
 
     private String annee_univ;
     private LocalDate date;
@@ -26,11 +26,11 @@ public class Payer {
         this.idpaye = idpaye;
     }
 
-    public Etudiant getEtudiant() {
+    public Student getEtudiant() {
         return etudiant;
     }
 
-    public void setEtudiant(Etudiant etudiant) {
+    public void setEtudiant(Student etudiant) {
         this.etudiant = etudiant;
     }
 
@@ -58,3 +58,4 @@ public class Payer {
         this.nbrMois = nbrMois;
     }
 }
+

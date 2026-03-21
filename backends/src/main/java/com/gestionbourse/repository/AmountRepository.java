@@ -1,12 +1,13 @@
 package com.gestionbourse.repository;
 
-import com.gestionbourse.models.Montant;
+import com.gestionbourse.models.Amount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface MontantRepository extends JpaRepository<Montant, Long> {
-    List<Montant> findByNiveau(String niveau);
+public interface AmountRepository extends JpaRepository<Amount, Long> {
+    List<Amount> findByNiveau(String niveau);
 }
+

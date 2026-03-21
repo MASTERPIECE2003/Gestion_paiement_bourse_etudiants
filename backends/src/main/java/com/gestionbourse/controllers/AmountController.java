@@ -1,7 +1,7 @@
 package com.gestionbourse.controllers;
 
-import com.gestionbourse.models.Montant;
-import com.gestionbourse.service.MontantService;
+import com.gestionbourse.models.Amount;
+import com.gestionbourse.service.AmountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,30 +9,30 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/montants")
-public class MontantController {
+@RequestMapping("/${version.path}/montants")
+public class AmountController {
 
     @Autowired
-    private MontantService montantService;
+    private AmountService montantService;
 
     @GetMapping
-    public List<Montant> getAllMontants() {
+    public List<Amount> getAllMontants() {
         return montantService.getAllMontants();
     }
 
     @GetMapping("/{id}")
-    public Montant getMontantById(@PathVariable Long id) {
+    public Amount getMontantById(@PathVariable Long id) {
         return montantService.getMontantById(id)
                 .orElseThrow(() -> new RuntimeException("Montant non trouvé avec id: " + id));
     }
 
     @PostMapping
-    public Montant saveMontant(@RequestBody Montant montant) {
+    public Amount saveMontant(@RequestBody Amount montant) {
         return montantService.saveMontant(montant);
     }
 
     @PutMapping("/{id}")
-    public Montant updateMontant(@PathVariable Long id, @RequestBody Montant montant) {
+    public Amount updateMontant(@PathVariable Long id, @RequestBody Amount montant) {
         return montantService.updateMontant(id, montant);
     }
 
@@ -41,3 +41,4 @@ public class MontantController {
         montantService.deleteMontant(id);
     }
 }
+
