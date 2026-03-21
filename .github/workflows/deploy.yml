@@ -8,6 +8,9 @@ jobs:
   build-and-test:
     name: Build and test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backends
 
     steps:
       - name: Checkout code
@@ -21,23 +24,24 @@ jobs:
           cache: gradle
 
       - name: Make Gradle wrapper executable
-        run: |
-          chmod +x backends/gradlew
-          backends/gradlew --no-daemon clean test bootJar
+        run: chmod +x gradlew
 
-      - name: Run tests
+      - name: Build and test
         env:
           SPRING_MAIL_HOST: localhost
           SPRING_MAIL_PORT: "1025"
           SPRING_MAIL_USERNAME: test
           SPRING_MAIL_PASSWORD: test
-        run: ./gradlew --no-daemon clean test
+        run: ./gradlew --no-daemon clean test bootJar
 
   package-artifact:
     name: Package JAR
     runs-on: ubuntu-latest
     needs: build-and-test
     if: github.event_name == 'push'
+    defaults:
+      run:
+        working-directory: backends
 
     steps:
       - name: Checkout code
@@ -51,7 +55,7 @@ jobs:
           cache: gradle
 
       - name: Make Gradle wrapper executable
-        run: chmod +x ./gradlew
+        run: chmod +x gradlew
 
       - name: Build executable JAR
         run: ./gradlew --no-daemon bootJar
@@ -60,7 +64,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-jar-${{ github.ref_name }}-${{ github.sha }}
-          path: build/libs/*.jar
+          path: backends/build/libs/*.jar
           retention-days: 7
 
   publish-image:
@@ -99,7 +103,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./backends
           push: true
           tags: |
             ${{ steps.tags.outputs.image_base }}:${{ steps.tags.outputs.branch_tag }}

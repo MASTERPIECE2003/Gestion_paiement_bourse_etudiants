@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffe18240-c79b-4879-9995-a75629fdca57" name="Changes" comment="">
+    <list default="true" id="ffe18240-c79b-4879-9995-a75629fdca57" name="Changes" comment="ci: update Gradle wrapper execution path and run tests in deploy workflow">
       <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backends/src/test/resources/application-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/test/resources/application-test.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,8 +105,17 @@
       <workItem from="1774104872090" duration="331000" />
       <workItem from="1774105814306" duration="507000" />
       <workItem from="1774106389994" duration="235000" />
-      <workItem from="1774127911740" duration="68000" />
+      <workItem from="1774127911740" duration="546000" />
     </task>
+    <task id="LOCAL-00001" summary="ci: update Gradle wrapper execution path and run tests in deploy workflow">
+      <option name="closed" value="true" />
+      <created>1774127989675</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774127989675</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,6 +123,10 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.bat" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ci: update Gradle wrapper execution path and run tests in deploy workflow" />
+    <option name="LAST_COMMIT_MESSAGE" value="ci: update Gradle wrapper execution path and run tests in deploy workflow" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
