@@ -80,12 +80,14 @@ jobs:
       - name: Set image tags
         id: tags
         run: |
-          BRANCH_TAG="${GITHUB_REF_NAME}"
-          SHA_TAG="${GITHUB_SHA::7}"
-          IMAGE_BASE="ghcr.io/${{ github.repository_owner }}/financial-student-backends"
-          echo "image_base=${IMAGE_BASE}" >> "$GITHUB_OUTPUT"
-          echo "branch_tag=${BRANCH_TAG}" >> "$GITHUB_OUTPUT"
-          echo "sha_tag=${SHA_TAG}" >> "$GITHUB_OUTPUT"
+            # Conversion en minuscules obligatoire pour GHCR
+            OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+            BRANCH_TAG="${GITHUB_REF_NAME}"
+            SHA_TAG="${GITHUB_SHA::7}"
+            IMAGE_BASE="ghcr.io/${OWNER}/financial-student-backends"
+            echo "image_base=${IMAGE_BASE}" >> "$GITHUB_OUTPUT"
+            echo "branch_tag=${BRANCH_TAG}" >> "$GITHUB_OUTPUT"
+            echo "sha_tag=${SHA_TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3

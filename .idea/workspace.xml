@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffe18240-c79b-4879-9995-a75629fdca57" name="Changes" comment="ci: update Gradle wrapper execution path and run tests in deploy workflow">
+    <list default="true" id="ffe18240-c79b-4879-9995-a75629fdca57" name="Changes" comment="ci: update application test config and adjust deploy workflow paths">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backends/src/test/resources/application-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backends/src/test/resources/application-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backends/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +75,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\FREELANCE\financial-student" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="GestionbourseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="backend" />
@@ -105,7 +112,7 @@
       <workItem from="1774104872090" duration="331000" />
       <workItem from="1774105814306" duration="507000" />
       <workItem from="1774106389994" duration="235000" />
-      <workItem from="1774127911740" duration="546000" />
+      <workItem from="1774127911740" duration="910000" />
     </task>
     <task id="LOCAL-00001" summary="ci: update Gradle wrapper execution path and run tests in deploy workflow">
       <option name="closed" value="true" />
@@ -115,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774127989675</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ci: update application test config and adjust deploy workflow paths">
+      <option name="closed" value="true" />
+      <created>1774128483193</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774128483193</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,7 +141,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ci: update Gradle wrapper execution path and run tests in deploy workflow" />
-    <option name="LAST_COMMIT_MESSAGE" value="ci: update Gradle wrapper execution path and run tests in deploy workflow" />
+    <MESSAGE value="ci: update application test config and adjust deploy workflow paths" />
+    <option name="LAST_COMMIT_MESSAGE" value="ci: update application test config and adjust deploy workflow paths" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
