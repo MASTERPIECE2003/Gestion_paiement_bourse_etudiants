@@ -26,7 +26,8 @@ Ce projet est une application web complète pour gérer les paiements des bourse
 
 ## Prérequis
 
-- Java 11 ou supérieur
+- Java 25
+- Gradle 8+ (ou une version compatible avec Java 25)
 - Node.js et npm
 - PostgreSQL
 - Git
@@ -39,33 +40,49 @@ Ce projet est une application web complète pour gérer les paiements des bourse
 
     ```bash
     git clone https://github.com/votre-utilisateur/votre-depot.git
-    cd votre-depot/gestionbourse
+    cd votre-depot/backend
     ```
 
-2. Configurez la base de données PostgreSQL dans `application.properties` :
+2. Configurez la base de données PostgreSQL dans `src/main/resources/application.yaml` :
 
-    ```properties
-    spring.datasource.url=jdbc:postgresql://localhost:5432/votre_base_de_donnees
-    spring.datasource.username=votre_utilisateur
-    spring.datasource.password=votre_mot_de_passe
-    spring.jpa.hibernate.ddl-auto=update
+    ```yaml
+    spring:
+      datasource:
+        url: jdbc:postgresql://localhost:5432/votre_base_de_donnees
+        username: votre_utilisateur
+        password: votre_mot_de_passe
+      jpa:
+        hibernate:
+          ddl-auto: update
     ```
 
-3. Configurez les paramètres SMTP pour l'envoi des emails dans `application.properties` :
+3. Configurez les paramètres SMTP pour l'envoi des emails dans `src/main/resources/application.yaml` :
 
-    ```properties
-    spring.mail.host=smtp.gmail.com
-    spring.mail.port=587
-    spring.mail.username=votre_email@gmail.com
-    spring.mail.password=votre_mot_de_passe
-    spring.mail.properties.mail.smtp.auth=true
-    spring.mail.properties.mail.smtp.starttls.enable=true
+    ```yaml
+    spring:
+      mail:
+        host: smtp.gmail.com
+        port: 587
+        username: votre_email@gmail.com
+        password: votre_mot_de_passe
+        properties:
+          mail:
+            smtp:
+              auth: true
+              starttls:
+                enable: true
     ```
 
 4. Lancez l'application Spring Boot :
 
     ```bash
-    ./mvnw spring-boot:run
+    gradle bootRun
+    ```
+
+5. Pour lancer les tests :
+
+    ```bash
+    gradle test
     ```
 
 ### Frontend
