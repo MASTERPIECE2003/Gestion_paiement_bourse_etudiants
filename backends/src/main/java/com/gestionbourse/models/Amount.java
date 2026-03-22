@@ -14,10 +14,10 @@ import lombok.Setter;
 @Setter
 public class Amount {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Utilisation de l'auto-incrémentation pour idniv
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idniv")
     @JsonProperty("idniv")
-    private Long levelId; // Utilisation de Long pour l'auto-incrémentation en PostgreSQL
+    private Long levelId;
 
     @Column(name = "niveau")
     @JsonProperty("niveau")
